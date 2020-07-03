@@ -9,7 +9,18 @@
 <body>
 	<div class="wrapper">
 		<div id="app">
-			
+			<h1>{{title}} = {{count}}</h1>
+			<button @click="count2(5, 'Изменено на 5', $event)">Кнопка +5</button>
+			<button @click="count2(10, 'Изменено на 10', $event) ">Кнопка +10</button>
+			<hr>
+			<h2>
+				<a href="http://google.com" target="_blank" @click.prevent="">Google</a>
+			</h2>
+			<hr>
+			<h2 @mousemove="move">
+				x: {{x}} \ y: {{y}}	
+				<div @mousemove.stop=""> STOP STOP STOP STOP</div>
+			</h2>
 		</div>
 	</div>
 	
@@ -17,10 +28,26 @@
 		var vue = new Vue({
 			el: '#app',
 			data: {
-				
+				count: 0,
+				title: 'счетчик',
+				x: 0,
+				y: 0
 			},
 			methods: {
-				
+				count2: function(num, str, event) {
+					this.count += num
+					this.title = str
+
+					if (num === 5) {
+						event.target.style.color = 'blue'
+					} else if (num === 10) {
+						event.target.style.color = 'red'
+					}
+				},
+				move: function(event) {
+					this.x = event.clientX
+					this.y = event.clientY
+				}
 			}
 		})
 	</script>
